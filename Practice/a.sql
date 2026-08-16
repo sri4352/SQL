@@ -187,4 +187,101 @@ from students
 select distinct age,location
 from students
 
+/*
+Table se top 3 students display karo.
+Marks ke basis par top 3 students find karo.
+Sabse kam marks wale 3 students find karo.
+*/
+
+select * 
+from students
+limit 3
+
+select*
+from students
+order by marks desc
+limit 3
+
+select*
+from students
+order by marks asc
+limit 3
+
+/*
+gopal ke marks ko 90 karo.
+Patna ke sabhi students ke marks mein 5 marks add karo.
+Jinki age 20 hai, unki age ko 21 karo.
+Siwan ke students ki city ko Muzaffarpur mein update karo.
+Aisa UPDATE likho jo sirf ek particular student ke marks change kare.
+*/
+SET SQL_SAFE_UPDATES = 0;
+use practice;
+update students
+set marks =90
+where name ='gopal';
+
+update students
+set marks =marks+5
+where location ='patna'
+
+update students
+set age =21
+where age =20
+
+update students
+set location ='Muzaffarpur'
+where location ='siwan'
+
+update students
+set marks =90
+where id =6;
+
+/*
+Har city ka:
+total marks
+average marks
+student count nikalo.
+Sirf un cities ko show karo jahan
+student count > 1
+AND
+average marks > 70
+Aur final result ko average marks descending mein sort karo.
+*/
+
+select
+location as city,
+avg(marks) as avg_marks,
+sum(marks) as total_marks,
+count(*) as total_student
+from students
+group by location
+having count(*)>1 and avg(marks)>70
+order by avg(marks) desc
+
+/*
+Har city ka student count nikalo aur sirf un cities ko show karo jahan at least 2 students hain.
+Phir result ko student count ke descending order mein sort karo.
+*/
+
+select
+count(*) as total_student,
+location as city
+from students
+group by location
+having count(*)>2
+order by count(*) desc
+
+/*
+Un students ko find karo jinke:
+marks > 70 AND age <= 21
+aur result ko marks descending mein sort karo.
+*/
+
+select 
+name as student_name,
+marks,
+age
+from students
+where marks>70 and age<=21
+order by marks desc
 
